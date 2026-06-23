@@ -85,4 +85,4 @@ O serviço ficará disponível em **http://localhost:5001**.
 
 ## Repositório
 
-> Placeholder: `<users-api repo>` (preencher após split de repositórios)
+> Repositório: https://github.com/YuriLucka/fcg-users-api
