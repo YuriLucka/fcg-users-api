@@ -21,7 +21,7 @@ Serviço responsável pelo gerenciamento de usuários e autenticação JWT da pl
 |-----------------------------------------|-------------|----------------------------------------------------|------------------------------------|
 | `ConnectionStrings__DefaultConnection` | Sim         | `(localdb)\MSSQLLocalDB;Database=FcgUsers;...`    | Connection string SQL Server       |
 | `JwtSettings__SecretKey`               | Sim         | `fiap-cloud-games-secret-key-minimo-32-chars!`    | Chave secreta do JWT (≥32 chars)   |
-| `JwtSettings__Issuer`                  | Sim         | `Users.API`                                       | Issuer do token JWT                |
+| `JwtSettings__Issuer`                  | Sim         | `FiapCloudGames`                                  | Issuer do token JWT                |
 | `JwtSettings__Audience`               | Sim         | `FiapCloudGames.Client`                           | Audience do token JWT              |
 | `RabbitMq__Host`                       | Sim         | `localhost`                                       | Host do RabbitMQ                   |
 | `RabbitMq__User`                       | Não         | `guest`                                           | Usuário do RabbitMQ                |
@@ -60,7 +60,7 @@ curl -X POST http://localhost:5001/api/auth/login \
 **Pré-requisitos:** .NET 8 SDK, SQL Server (LocalDB ou instância local), RabbitMQ.
 
 ```bash
-cd services/users-api/src/Users.API
+cd src/Users.API
 dotnet run
 # Swagger disponível em http://localhost:<porta>/ (modo Development)
 ```
@@ -78,7 +78,7 @@ dotnet run --ConnectionStrings__DefaultConnection="Server=...;Database=users;...
 A partir da raiz do repositório:
 
 ```bash
-docker compose -f orchestration/docker-compose.yml up --build users-api users-db rabbitmq
+docker compose -f ../fcg-orchestration/docker-compose.yml up --build users-api users-db rabbitmq
 ```
 
 O serviço ficará disponível em **http://localhost:5001**.
