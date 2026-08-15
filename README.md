@@ -87,7 +87,7 @@ A partir da raiz do repositório:
 docker compose -f ../fcg-orchestration/docker-compose.yml up --build users-api users-db rabbitmq
 ```
 
-O serviço ficará disponível em **http://localhost:5001**.
+A partir da Fase 3, o serviço não é mais acessível direto — todo tráfego externo passa pelo Kong (`fcg-orchestration`), em **http://localhost:8000/api/User** e **http://localhost:8000/api/Auth**. Ver o README do `fcg-orchestration` para detalhes do gateway.
 
 ## Repositório
 
