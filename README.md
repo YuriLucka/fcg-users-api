@@ -41,6 +41,12 @@ Serviço responsável pelo gerenciamento de usuários e autenticação JWT da pl
 | `DELETE` | `/api/user/{id}`              | Bearer (Admin) | Remove um usuário                            |
 | `PATCH`  | `/api/user/{id}/promote`      | Bearer (Admin) | Promove usuário para administrador           |
 
+## Observabilidade
+
+| Rota       | Descrição                                              |
+|------------|----------------------------------------------------------|
+| `/metrics` | Métricas Prometheus (contagem de requisições, latência, status code) — raspado pelo Prometheus da orchestration |
+
 ### Exemplos de uso
 
 ```bash
