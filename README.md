@@ -33,13 +33,13 @@ Serviço responsável pelo gerenciamento de usuários e autenticação JWT da pl
 
 | Método   | Rota                          | Auth           | Descrição                                    |
 |----------|-------------------------------|----------------|----------------------------------------------|
-| `POST`   | `/api/user`                   | Anônimo        | Cadastra novo usuário                        |
-| `POST`   | `/api/auth/login`             | Anônimo        | Realiza login e retorna token JWT            |
-| `GET`    | `/api/user/{id}`              | Bearer (user)  | Retorna dados de um usuário                  |
-| `GET`    | `/api/user`                   | Bearer (Admin) | Lista todos os usuários                      |
-| `PUT`    | `/api/user/{id}`              | Bearer (user)  | Atualiza dados de um usuário                 |
-| `DELETE` | `/api/user/{id}`              | Bearer (Admin) | Remove um usuário                            |
-| `PATCH`  | `/api/user/{id}/promote`      | Bearer (Admin) | Promove usuário para administrador           |
+| `POST`   | `/api/User`                   | Anônimo        | Cadastra novo usuário                        |
+| `POST`   | `/api/Auth/login`             | Anônimo        | Realiza login e retorna token JWT            |
+| `GET`    | `/api/User/{id}`              | Bearer (user)  | Retorna dados de um usuário                  |
+| `GET`    | `/api/User`                   | Bearer (Admin) | Lista todos os usuários                      |
+| `PUT`    | `/api/User/{id}`              | Bearer (user)  | Atualiza dados de um usuário                 |
+| `DELETE` | `/api/User/{id}`              | Bearer (Admin) | Remove um usuário                            |
+| `PATCH`  | `/api/User/{id}/promote`      | Bearer (Admin) | Promove usuário para administrador           |
 
 ## Observabilidade
 
@@ -51,12 +51,12 @@ Serviço responsável pelo gerenciamento de usuários e autenticação JWT da pl
 
 ```bash
 # Cadastrar usuário
-curl -X POST http://localhost:5001/api/user \
+curl -X POST http://localhost:8000/api/User \
   -H "Content-Type: application/json" \
   -d '{"name":"João","email":"joao@example.com","password":"Senha@123"}'
 
 # Login
-curl -X POST http://localhost:5001/api/auth/login \
+curl -X POST http://localhost:8000/api/Auth/login \
   -H "Content-Type: application/json" \
   -d '{"email":"joao@example.com","password":"Senha@123"}'
 ```
