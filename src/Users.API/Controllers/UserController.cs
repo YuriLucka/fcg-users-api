@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Users.Application.DTOs;
 using Users.Application.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -47,6 +48,9 @@ namespace Users.API.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetById(Guid id)
         {
+            if (!IsOwnerOrAdmin(id))
+                return Forbid();
+
             var user = await _userService.GetByIdAsync(id);
             return Ok(user);
         }
@@ -77,8 +81,20 @@ namespace Users.API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Update(Guid id, [FromBody] UpdateUserDto dto)
         {
+            if (!IsOwnerOrAdmin(id))
+                return Forbid();
+
             var user = await _userService.UpdateAsync(id, dto);
             return Ok(user);
+        }
+
+        private bool IsOwnerOrAdmin(Guid id)
+        {
+            if (User.IsInRole("Admin"))
+                return true;
+
+            var sub = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            return Guid.TryParse(sub, out var callerId) && callerId == id;
         }
 
         /// <summary>
