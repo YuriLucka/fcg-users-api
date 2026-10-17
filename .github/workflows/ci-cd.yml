@@ -53,15 +53,6 @@ jobs:
           resource-group: ${{ env.RG }}
           cluster-name: ${{ env.AKS }}
 
-      - name: Secret da API
-        run: |
-          kubectl -n $NS create secret generic users-secret \
-            --from-literal=ConnectionStrings__DefaultConnection='${{ secrets.DB_CONN }}' \
-            --from-literal=JwtSettings__SecretKey='${{ secrets.JWT_SECRET }}' \
-            --from-literal=RabbitMq__User='${{ secrets.RABBIT_USER }}' \
-            --from-literal=RabbitMq__Pass='${{ secrets.RABBIT_PASS }}' \
-            --dry-run=client -o yaml | kubectl apply -f -
-
       - name: Deploy (rolling update)
         run: |
           sed -i "s/IMAGE_TAG/$TAG/" k8s/deployment.yaml
