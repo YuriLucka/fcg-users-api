@@ -20,12 +20,12 @@ Serviço responsável pelo gerenciamento de usuários e autenticação JWT da pl
 | Variável                                | Obrigatório | Valor padrão (dev local)                          | Descrição                          |
 |-----------------------------------------|-------------|----------------------------------------------------|------------------------------------|
 | `ConnectionStrings__DefaultConnection` | Sim         | `(localdb)\MSSQLLocalDB;Database=FcgUsers;...`    | Connection string SQL Server       |
-| `JwtSettings__SecretKey`               | Sim         | `fiap-cloud-games-secret-key-minimo-32-chars!`    | Chave secreta do JWT (≥32 chars)   |
+| `JwtSettings__SecretKey`               | Sim         | —                                                  | Chave secreta do JWT (≥32 chars, Secret) |
 | `JwtSettings__Issuer`                  | Sim         | `FiapCloudGames`                                  | Issuer do token JWT                |
 | `JwtSettings__Audience`               | Sim         | `FiapCloudGames.Client`                           | Audience do token JWT              |
 | `RabbitMq__Host`                       | Sim         | `localhost`                                       | Host do RabbitMQ                   |
-| `RabbitMq__User`                       | Não         | `guest`                                           | Usuário do RabbitMQ                |
-| `RabbitMq__Pass`                       | Não         | `guest`                                           | Senha do RabbitMQ                  |
+| `RabbitMq__User`                       | Sim         | —                                                  | Usuário do RabbitMQ (Secret)       |
+| `RabbitMq__Pass`                       | Sim         | —                                                  | Senha do RabbitMQ (Secret)         |
 
 > No Docker Compose e K8s, `JwtSettings__Issuer` = `FiapCloudGames` e `JwtSettings__Audience` = `FiapCloudGames.Client`.
 
