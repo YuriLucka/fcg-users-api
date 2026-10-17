@@ -23,8 +23,9 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
-var secretKey = jwtSettings["SecretKey"]
-    ?? throw new InvalidOperationException("JwtSettings:SecretKey não configurado.");
+var secretKey = jwtSettings["SecretKey"];
+if (string.IsNullOrWhiteSpace(secretKey))
+    throw new InvalidOperationException("JwtSettings:SecretKey não configurado.");
 
 builder.Services.AddAuthentication(options =>
 {
@@ -123,10 +124,10 @@ app.MapMetrics();
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    for (var attempt = 1; attempt <= 10; attempt++)
+    for (var attempt = 1; attempt <= 30; attempt++)
     {
         try { await db.Database.MigrateAsync(); break; }
-        catch when (attempt < 10) { await Task.Delay(TimeSpan.FromSeconds(5)); }
+        catch when (attempt < 30) { await Task.Delay(TimeSpan.FromSeconds(5)); }
     }
     await AppDbContext.SeedAsync(db);
 }

@@ -21,8 +21,9 @@ namespace Users.Infrastructure.Security
         public TokenDto GenerateToken(User user)
         {
             var jwtSettings = _configuration.GetSection("JwtSettings");
-            var secretKey = jwtSettings["SecretKey"]
-                ?? throw new InvalidOperationException("JwtSettings:SecretKey não configurado.");
+            var secretKey = jwtSettings["SecretKey"];
+            if (string.IsNullOrWhiteSpace(secretKey))
+                throw new InvalidOperationException("JwtSettings:SecretKey não configurado.");
 
             var expirationMinutes = int.Parse(jwtSettings["ExpirationMinutes"] ?? "60");
             var expiresAt = DateTime.UtcNow.AddMinutes(expirationMinutes);
