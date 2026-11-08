@@ -19,11 +19,11 @@ namespace Users.Application.Services
         public async Task<TokenDto> LoginAsync(LoginDto dto)
         {
             var user = await _userRepository.GetByEmailAsync(dto.Email)
-                ?? throw new DomainException("Credenciais inválidas.");
+                ?? throw new DomainException("E-mail ou senha inválidos.");
 
             var passwordValid = BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash);
             if (!passwordValid)
-                throw new DomainException("Credenciais inválidas.");
+                throw new DomainException("E-mail ou senha inválidos.");
 
             var token = _jwtTokenService.GenerateToken(user);
 
